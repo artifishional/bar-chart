@@ -1,4 +1,4 @@
-# Qlik Sense extension 2 dimensional staked bar-chart
+# Qlik Sense extension: 2 dimensional staked bar-chart
 
 how to use:
 
