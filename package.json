@@ -27,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/artifishional/bar-chart/issues"
   },
-  "homepage": "https://github.com/artifishional/bar-chart#readme"
+  "homepage": "https://github.com/artifishional/bar-chart#readme",
+  "dependencies": {
+    "@babel/polyfill": "^7.2.5"
+  }
 }

@@ -110,13 +110,15 @@ class Legend extends Unit {
 				x: 0, y: -1, width: 1.5, height: 1.5,
 				style: { fill: getSpeciesColor( species ) }
 			} ),
-			svg( "text", {
-				style: {
-					alignmentBaseline: "middle",
-					fontSize: `${BASE_FONT_SIZE}px`,
-					fill: "#6B6B6B",
-				}, text: species
-			} ),
+			svg("g", {},
+				svg( "text", {
+					style: {
+						alignmentBaseline: "middle",
+						fontSize: `${BASE_FONT_SIZE}px`,
+						fill: "#6B6B6B",
+					}, text: species
+				})
+			),
 		] ) ));
 	}
 	

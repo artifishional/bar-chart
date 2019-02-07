@@ -1,4 +1,5 @@
 import "./polifills"
+import "@babel/polyfill"
 import paintmethod from "./index"
 
 window["define"]( [], function ( ) {
