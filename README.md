@@ -9,3 +9,5 @@ how to debug in browser:
 
     npm install
     npm run dev
+    
+![alt text](./preview.png)
