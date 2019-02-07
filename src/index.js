@@ -2,11 +2,13 @@ import { svg } from "./element"
 //todo debug layout
 import data from "./$-data"
 
+const {max} = Math;
 const WIDTH = 150;
 const BAR_WIDTH = 22;
-const HEIGHT = 120;
+const HEIGHT = 115;
 const BASE_FONT_SIZE = 2.5;
 const PADDING_LEFT = 6;
+const PADDING_RIGHT = 2;
 const PADDING_TOP = 3;
 
 const cachedcolors = {
@@ -63,7 +65,7 @@ class Axis {
 							strokeWidth: ratio,
 						},
 						x1: PADDING_LEFT,
-						x2: WIDTH,
+						x2: WIDTH - PADDING_RIGHT,
 						y1: PADDING_TOP + (1 - i / (count-1)) * 100,
 						y2: PADDING_TOP + (1 - i / (count-1)) * 100,
 					}),
@@ -73,7 +75,7 @@ class Axis {
 							textAnchor: "end",
 							fill: "#6B6B6B",
 						},
-						x: 5,
+						x: 4,
 						y: PADDING_TOP + (1 - i / (count-1)) * 100 + 0.5,
 						text: `${i*2}`
 					}),
@@ -127,7 +129,7 @@ class Legend extends Unit {
 		super.justifyNodes();
 		const { width } = this.gr.getBBox();
 		this.gr.style.transform =
-			`translate( ${ (PADDING_LEFT + WIDTH - width) / 2 }px, ${HEIGHT-9}px )`
+			`translate( ${ (PADDING_LEFT + WIDTH - width - PADDING_RIGHT) / 2 }px, ${HEIGHT-6}px )`
 	}
 	
 }
@@ -136,7 +138,7 @@ class Legend extends Unit {
 class Stage {
 	
 	constructor(model, { species, count }) {
-		const width = WIDTH - PADDING_LEFT;
+		const width = WIDTH - PADDING_LEFT - PADDING_RIGHT;
 		const margin = width / (count*2);
 		
 		this.gr = svg( "g", { style: {
@@ -187,15 +189,26 @@ class Chart {
 	
 }
 
+function transform(data) {
+	let maxFreq =
+		max(...data.map( ({ chapters }) => chapters.reduce( (acc, { vl }) => acc+vl, 0) ));
+	maxFreq += maxFreq * 0.15|0;
+	return data.map( ({chapters, ...args}) => ({
+		chapters: chapters.map( ({ vl, ...args }) => ({ vl, ...args, freq: vl/maxFreq }) ),
+		...args,
+	}));
+}
+
 export default function paint( node, layout ) {
 	
 	//todo debug layout
-	layout = data;
+	layout = transform(data);
 	
 	const container = svg("g");
 	
 	node.append(svg( "svg", {
 			style: {
+				outline: "1px solid #D6D6D6",
 				fontFamily: "Calibri Light",
 				height: `${node.offsetHeight||innerHeight}px`,
 			}, viewBox: `0 0 ${WIDTH} ${HEIGHT}`
