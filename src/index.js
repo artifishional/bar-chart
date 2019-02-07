@@ -166,7 +166,7 @@ class Stage {
 					fill: "#000",
 				},
 				x: BAR_WIDTH / 2,
-				y: PADDING_TOP + HEIGHT - 17,
+				y: PADDING_TOP + HEIGHT - 12,
 				text: `${model.stage}`
 			} ),
 		);
