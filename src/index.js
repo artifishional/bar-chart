@@ -39,6 +39,7 @@ class Bar {
 			x: BAR_WIDTH / 2,
 			y: PADDING_TOP + (model.freq / 2 + 1 - start - model.freq) * 100,
 			style: {
+				alignmentBaseline: "middle",
 				fontSize: `${BASE_FONT_SIZE}px`,
 				textAnchor: "middle",
 				fill: "#000",
@@ -135,8 +136,11 @@ class Legend extends Unit {
 class Stage {
 	
 	constructor(model, { species, count }) {
+		const width = WIDTH - PADDING_LEFT;
+		const margin = width / (count*2);
+		
 		this.gr = svg( "g", { style: {
-				transform: `translateX(${ (PADDING_LEFT + WIDTH) / (count+3) * (species*2+1) - BAR_WIDTH/2}px)`}
+				transform: `translateX(${ PADDING_LEFT + margin * (species*2+1) - BAR_WIDTH/2}px)`}
 		} );
 		const height = model.chapters.reduce( (start, chapter, species) => {
 			this.gr.append(new Bar(chapter, { start, species }).gr);
